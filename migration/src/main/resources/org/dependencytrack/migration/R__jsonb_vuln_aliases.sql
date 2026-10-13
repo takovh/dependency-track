@@ -9,6 +9,7 @@ AS
 $$
 SELECT JSONB_AGG(DISTINCT JSONB_STRIP_NULLS(JSONB_BUILD_OBJECT(
          'cveId', CASE WHEN va."SOURCE" = 'NVD' THEN va."VULN_ID" END
+       , 'euvdId', CASE WHEN va."SOURCE" = 'EUVD' THEN va."VULN_ID" END
        , 'ghsaId', CASE WHEN va."SOURCE" = 'GITHUB' THEN va."VULN_ID" END
        , 'gsdId', CASE WHEN va."SOURCE" = 'GSD' THEN va."VULN_ID" END
        , 'internalId', CASE WHEN va."SOURCE" = 'INTERNAL' THEN va."VULN_ID" END

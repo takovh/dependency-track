@@ -64,6 +64,7 @@ class TaskSchedulerInitializerTest {
                         "Kenna Security Upload",
                         "KEV Mirror",
                         "Metrics Maintenance",
+                        "EUVD Mirror",
                         "NVD Mirror",
                         "OSV Mirror",
                         "Package Metadata Maintenance",

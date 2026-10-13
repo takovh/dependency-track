@@ -345,6 +345,7 @@ public final class BovModelConverter {
             case SNYK -> alias.setSnykId(cycloneVuln.getId());
             case VULNDB -> alias.setVulnDbId(cycloneVuln.getId());
             case CX -> alias.setCxId(cycloneVuln.getId());
+            case EUVD -> alias.setEuvdId(cycloneVuln.getId());
             // Source of the vulnerability itself has been validated before,
             // so this scenario is highly unlikely to ever happen. Including
             // it here to make linters happy.
@@ -360,6 +361,7 @@ public final class BovModelConverter {
             case SNYK -> alias.setSnykId(cycloneAlias.getId());
             case VULNDB -> alias.setVulnDbId(cycloneAlias.getId());
             case CX -> alias.setCxId(cycloneAlias.getId());
+            case EUVD -> alias.setEuvdId(cycloneAlias.getId());
             default ->
                 throw new IllegalArgumentException(
                         "Invalid source %s for alias %s".formatted(aliasSource, cycloneAlias.getId()));

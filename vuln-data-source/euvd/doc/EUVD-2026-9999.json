@@ -1,0 +1,92 @@
+{
+  "id": "EUVD-2026-9999",
+  "enisaUuid": "da240afb-fff7-3817-bc16-d2265d74845a",
+  "description": "Gokapi is a self-hosted file sharing server with automatic expiration and encryption support. Prior to version 2.2.3, a privilege escalation vulnerability in the user rank demotion logic allows a demoted user's existing API keys to retain ApiPermManageFileRequests and ApiPermManageLogs permissions, enabling continued access to upload-request management and log viewing endpoints after the user has been stripped of all privileges. This issue has been patched in version 2.2.3.",
+  "datePublished": "Mar 6, 2026, 4:45:15 AM",
+  "dateUpdated": "Mar 6, 2026, 4:06:23 PM",
+  "baseScore": 5.4,
+  "baseScoreVersion": "3.1",
+  "baseScoreVector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
+  "references": "https://github.com/Forceu/Gokapi/security/advisories/GHSA-q658-hfpg-35qc\nhttps://github.com/Forceu/Gokapi/releases/tag/v2.2.3\n",
+  "aliases": "CVE-2026-29061\nGHSA-q658-hfpg-35qc\n",
+  "assigner": "GitHub_M",
+  "epss": 0.12,
+  "enisaIdProduct": [
+    {
+      "id": "f2ccfa0c-5fc0-3aa7-b57e-7c567968a466",
+      "product": {
+        "name": "Gokapi",
+        "vendor": {
+          "name": "Forceu"
+        }
+      },
+      "product_version": "< 2.2.3"
+    }
+  ],
+  "enisaIdVendor": [
+    {
+      "id": "74504ad6-78a8-3693-a61c-d552f5b4f1c7",
+      "vendor": {
+        "name": "Forceu"
+      }
+    }
+  ],
+  "enisaIdVulnerability": [
+    {
+      "id": "266ddd07-dfdf-30c5-b775-f8136d2d48f2",
+      "vulnerability": {
+        "id": "GHSA-q658-hfpg-35qc",
+        "description": "Gokapi has privilege escalation via incomplete API-key permission revocation on user rank demotion",
+        "datePublished": "Mar 5, 2026, 8:42:32 PM",
+        "dateUpdated": "Mar 6, 2026, 3:17:16 PM",
+        "baseScore": 0.0,
+        "references": "https://github.com/Forceu/Gokapi/security/advisories/GHSA-q658-hfpg-35qc\nhttps://nvd.nist.gov/vuln/detail/CVE-2026-29061\nhttps://github.com/Forceu/Gokapi\nhttps://github.com/Forceu/Gokapi/releases/tag/v2.2.3\n",
+        "enisa_id": "EUVD-2026-9999\n",
+        "aliases": "CVE-2026-29061\nGHSA-q658-hfpg-35qc\n",
+        "epss": 0.0,
+        "dataProcessed": "Aug 30, 2026, 1:46:03 AM",
+        "vulnerabilityProduct": [],
+        "vulnerabilityVendor": []
+      }
+    },
+    {
+      "id": "36de5b16-183f-360a-903b-0c60170f7596",
+      "vulnerability": {
+        "id": "CVE-2026-29061",
+        "description": "Gokapi is a self-hosted file sharing server with automatic expiration and encryption support. Prior to version 2.2.3, a privilege escalation vulnerability in the user rank demotion logic allows a demoted user's existing API keys to retain ApiPermManageFileRequests and ApiPermManageLogs permissions, enabling continued access to upload-request management and log viewing endpoints after the user has been stripped of all privileges. This issue has been patched in version 2.2.3.",
+        "datePublished": "Mar 6, 2026, 4:45:15 AM",
+        "dateUpdated": "Mar 6, 2026, 4:06:23 PM",
+        "status": "PUBLISHED",
+        "baseScore": 5.4,
+        "baseScoreVersion": "3.1",
+        "baseScoreVector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
+        "references": "https://github.com/Forceu/Gokapi/security/advisories/GHSA-q658-hfpg-35qc\nhttps://github.com/Forceu/Gokapi/releases/tag/v2.2.3\n",
+        "enisa_id": "EUVD-2026-9999\n",
+        "assigner": "GitHub_M",
+        "epss": 0.12,
+        "dataProcessed": "Aug 31, 2026, 7:07:44 AM",
+        "vulnerabilityProduct": [
+          {
+            "id": "1a06092b-d61f-3dce-96e6-07b5aa3c55c7",
+            "product": {
+              "name": "Gokapi",
+              "vendor": {
+                "name": "Forceu"
+              }
+            },
+            "product_version": "< 2.2.3"
+          }
+        ],
+        "vulnerabilityVendor": [
+          {
+            "id": "06ca6746-d8f8-397d-a471-5649d287076e",
+            "vendor": {
+              "name": "Forceu"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "enisaIdAdvisory": []
+}

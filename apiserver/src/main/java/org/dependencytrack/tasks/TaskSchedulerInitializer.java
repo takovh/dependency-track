@@ -196,18 +196,18 @@ public final class TaskSchedulerInitializer implements ServletContextListener {
                         "Defect Dojo Upload",
                         getCronScheduleFromConfig(config, ConfigKeys.TASK_DEFECT_DOJO_UPLOAD_CRON),
                         new DefectDojoUploadTask(HttpClient.INSTANCE, secretManager)),
-                recurringTaskTriggeredOnFirstRun(
-                        "EPSS Mirror",
-                        getCronScheduleFromConfig(config, ConfigKeys.TASK_EPSS_MIRROR_CRON),
-                        new EpssMirrorTask(HttpClient.INSTANCE)),
-                recurringTaskTriggeredOnFirstRun(
-                        "KEV Mirror", getCronScheduleFromConfig(config, ConfigKeys.TASK_KEV_MIRROR_CRON), () -> {
-                            final Collection<KevDataSourceFactory> factories =
-                                    pluginManager.getFactories(KevDataSource.class);
-                            for (final KevDataSourceFactory factory : factories) {
-                                kevDataSourceMirrorService.trigger(factory.extensionName(), null);
-                            }
-                        }),
+               recurringTaskTriggeredOnFirstRun(
+                       "EPSS Mirror",
+                       getCronScheduleFromConfig(config, ConfigKeys.TASK_EPSS_MIRROR_CRON),
+                       new EpssMirrorTask(HttpClient.INSTANCE)),
+               recurringTaskTriggeredOnFirstRun(
+                       "KEV Mirror", getCronScheduleFromConfig(config, ConfigKeys.TASK_KEV_MIRROR_CRON), () -> {
+                           final Collection<KevDataSourceFactory> factories =
+                                   pluginManager.getFactories(KevDataSource.class);
+                           for (final KevDataSourceFactory factory : factories) {
+                               kevDataSourceMirrorService.trigger(factory.extensionName(), null);
+                           }
+                       }),
                 recurringTask(
                         "Fortify SSC Upload",
                         getCronScheduleFromConfig(config, ConfigKeys.TASK_FORTIFY_SSC_UPLOAD_CRON),
@@ -232,6 +232,10 @@ public final class TaskSchedulerInitializer implements ServletContextListener {
                         "OSV Mirror",
                         getCronScheduleFromConfig(config, ConfigKeys.TASK_OSV_VULN_DATA_SOURCE_MIRROR_CRON),
                         () -> vulnDataSourceMirrorService.trigger("osv", null)),
+                recurringTaskTriggeredOnFirstRun(
+                        "EUVD Mirror",
+                        getCronScheduleFromConfig(config, ConfigKeys.TASK_EUVD_VULN_DATA_SOURCE_MIRROR_CRON),
+                        () -> vulnDataSourceMirrorService.trigger("euvd", null)),
                 recurringTask(
                         "Package Metadata Resolution",
                         getCronScheduleFromConfig(config, ConfigKeys.TASK_PACKAGE_METADATA_RESOLUTION_CRON),

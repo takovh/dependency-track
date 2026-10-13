@@ -85,6 +85,57 @@ class MirrorVulnDataSourceActivityTest extends PersistenceCapableTest {
         return pluginManager;
     }
 
+
+    @Test
+    void shouldMirrorEuvdWithAliasesAndAffectedSoftware() throws Exception {
+        final var bov = Bom.newBuilder()
+                .addComponents(org.cyclonedx.proto.v1_7.Component.newBuilder()
+                        .setBomRef("product")
+                        .setName("test")
+                        .setCpe("cpe:2.3:a:vendor:test:*:*:*:*:*:*:*:*"))
+                .addVulnerabilities(org.cyclonedx.proto.v1_7.Vulnerability.newBuilder()
+                        .setId("EUVD-2026-1")
+                        .setSource(org.cyclonedx.proto.v1_7.Source.newBuilder().setName("EUVD"))
+                        .addReferences(org.cyclonedx.proto.v1_7.VulnerabilityReference.newBuilder()
+                                .setId("CVE-2026-0001")
+                                .setSource(org.cyclonedx.proto.v1_7.Source.newBuilder()
+                                        .setName("NVD")))
+                        .addAffects(org.cyclonedx.proto.v1_7.VulnerabilityAffects.newBuilder()
+                                .setRef("product")
+                                .addVersions(org.cyclonedx.proto.v1_7.VulnerabilityAffectedVersions.newBuilder()
+                                        .setRange("vers:generic/*"))))
+                .build();
+        final var dataSource = mock(VulnDataSource.class);
+        doReturn(true, false).when(dataSource).hasNext();
+        doReturn(bov).when(dataSource).next();
+        final var activity = new MirrorVulnDataSourceActivity(createPluginManager("euvd", dataSource));
+        activity.execute(
+                mock(ActivityContext.class),
+                MirrorVulnDataSourceArg.newBuilder()
+                        .setDataSourceName("euvd")
+                        .setSourceName("EUVD")
+                        .build());
+        try (final var handle = JdbiFactory.openJdbiHandle()) {
+            final var key = new org.dependencytrack.model.VulnerabilityKey("EUVD-2026-1", "EUVD");
+            final var id = new org.dependencytrack.persistence.jdbi.VulnerabilitySyncDao(handle)
+                    .getIdsByKey(java.util.List.of(key))
+                    .get(key);
+            assertThat(id).isNotNull();
+            assertThat(handle.createQuery(
+                                    "SELECT COUNT(*) FROM \"VULNERABILITY_ALIAS\" WHERE \"SOURCE\" = 'EUVD' AND \"VULN_ID\" = 'EUVD-2026-1'")
+                            .mapTo(Integer.class)
+                            .one())
+                    .isEqualTo(1);
+            assertThat(handle.createQuery(
+                                    "SELECT COUNT(*) FROM \"AFFECTEDVERSIONATTRIBUTION\" WHERE \"SOURCE\" = 'EUVD'")
+                            .mapTo(Integer.class)
+                            .one())
+                    .isPositive();
+        }
+        verify(dataSource).markProcessed(bov);
+        verify(dataSource).close();
+    }
+
     @Test
     void shouldThrowWhenExtensionNotFound() {
         pluginManager = new PluginManager(

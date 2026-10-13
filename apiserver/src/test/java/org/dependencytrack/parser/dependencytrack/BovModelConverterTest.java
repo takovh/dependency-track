@@ -49,6 +49,31 @@ import static org.cyclonedx.proto.v1_7.ScoreMethod.SCORE_METHOD_CVSSV4;
 import static org.cyclonedx.proto.v1_7.ScoreMethod.SCORE_METHOD_OWASP;
 
 class BovModelConverterTest {
+    @Test
+    void shouldPreserveEuvdSourceAndCveGhsaAliases() {
+        final var cdx = org.cyclonedx.proto.v1_7.Vulnerability.newBuilder()
+                .setId("EUVD-2026-9999")
+                .setSource(Source.newBuilder().setName("EUVD"))
+                .addReferences(VulnerabilityReference.newBuilder()
+                        .setId("CVE-2026-29061")
+                        .setSource(Source.newBuilder().setName("NVD")))
+                .addReferences(VulnerabilityReference.newBuilder()
+                        .setId("GHSA-q658-hfpg-35qc")
+                        .setSource(Source.newBuilder().setName("GITHUB")))
+                .build();
+        final var converted = BovModelConverter.convert(
+                Bom.newBuilder().addVulnerabilities(cdx).build(), cdx, true);
+        assertThat(converted.getSource()).isEqualTo("EUVD");
+        assertThat(converted.getAliases()).hasSize(2);
+        assertThat(converted.getAliases())
+                .allSatisfy(alias -> assertThat(alias.getEuvdId()).isEqualTo("EUVD-2026-9999"));
+        assertThat(org.dependencytrack.util.VulnerabilityUtil.extractAliasKeys(
+                        converted.getAliases(),
+                        new org.dependencytrack.model.VulnerabilityKey(converted.getVulnId(), converted.getSource())))
+                .containsExactlyInAnyOrder(
+                        new org.dependencytrack.model.VulnerabilityKey("CVE-2026-29061", "NVD"),
+                        new org.dependencytrack.model.VulnerabilityKey("GHSA-q658-hfpg-35qc", "GITHUB"));
+    }
 
     @Test
     void testConvertNullValue() {

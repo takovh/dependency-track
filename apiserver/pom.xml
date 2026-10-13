@@ -239,6 +239,11 @@
         </dependency>
         <dependency>
             <groupId>org.dependencytrack</groupId>
+            <artifactId>vuln-data-source-euvd</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.dependencytrack</groupId>
             <artifactId>vuln-data-source-nvd</artifactId>
             <version>${project.version}</version>
         </dependency>

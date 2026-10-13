@@ -64,6 +64,7 @@ public final class ConfigKeys {
     public static final String TASK_KENNA_SECURITY_UPLOAD_CRON = "dt.task.kenna-security-upload.cron";
     public static final String TASK_METRICS_MAINTENANCE_CRON = "dt.task.metrics-maintenance.cron";
     public static final String TASK_NVD_VULN_DATA_SOURCE_MIRROR_CRON = "dt.task.nvd-vuln-data-source-mirror.cron";
+    public static final String TASK_EUVD_VULN_DATA_SOURCE_MIRROR_CRON = "dt.task.euvd-vuln-data-source-mirror.cron";
     public static final String TASK_OSV_VULN_DATA_SOURCE_MIRROR_CRON = "dt.task.osv-vuln-data-source-mirror.cron";
     public static final String TASK_PORTFOLIO_ANALYSIS_MAX_IN_FLIGHT_ANALYSES =
             "dt.task.portfolio-analysis.max-in-flight-analyses";

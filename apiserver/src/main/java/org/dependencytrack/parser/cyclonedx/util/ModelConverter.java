@@ -1242,6 +1242,7 @@ public class ModelConverter {
         switch (vulnSource) {
             case GITHUB -> cdxSource.setUrl("https://github.com/advisories");
             case NVD -> cdxSource.setUrl("https://nvd.nist.gov/");
+            case EUVD -> cdxSource.setUrl("https://euvd.enisa.europa.eu/");
             case OSSINDEX -> cdxSource.setUrl("https://ossindex.sonatype.org/");
             case OSV -> cdxSource.setUrl("https://osv.dev/");
             case SNYK -> cdxSource.setUrl("https://security.snyk.io/");

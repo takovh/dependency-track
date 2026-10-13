@@ -33,6 +33,7 @@
         <module>jvn</module>
         <module>nvd</module>
         <module>osv</module>
+        <module>euvd</module>
     </modules>
     <properties>
         <project.parentBaseDir>${project.basedir}/..</project.parentBaseDir>
