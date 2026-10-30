@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -74,6 +75,31 @@ public class FindingTest extends PersistenceCapableTest {
         Assertions.assertEquals(1, map.get("severityRank"));
         Assertions.assertEquals(BigDecimal.valueOf(0.5), map.get("epssScore"));
         Assertions.assertEquals(BigDecimal.valueOf(0.9), map.get("epssPercentile"));
+    }
+
+    @Test
+    public void testVulnerabilityAliasesWithEuvd() {
+        final var euvdAlias = new VulnerabilityAlias();
+        euvdAlias.setEuvdId("EUVD-2025-12345");
+        final var ghsaAlias = new VulnerabilityAlias();
+        ghsaAlias.setGhsaId("GHSA-px6h-65pj-6gq3");
+
+        finding.addVulnerabilityAliases(List.of(euvdAlias, ghsaAlias, euvdAlias));
+
+        assertThat(finding.getVulnerability().get("aliases"))
+                .isEqualTo(Set.of(Map.of("euvdId", "EUVD-2025-12345"), Map.of("ghsaId", "GHSA-px6h-65pj-6gq3")));
+    }
+
+    @Test
+    public void testVulnerabilityAliasesWithBlankEuvd() {
+        final var alias = new VulnerabilityAlias();
+        alias.setEuvdId(" ");
+        alias.setGhsaId("GHSA-px6h-65pj-6gq3");
+
+        finding.addVulnerabilityAliases(List.of(alias));
+
+        assertThat(finding.getVulnerability().get("aliases"))
+                .isEqualTo(Set.of(Map.of("ghsaId", "GHSA-px6h-65pj-6gq3")));
     }
 
     @Test

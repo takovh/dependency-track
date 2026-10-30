@@ -168,6 +168,9 @@ public final class Finding implements Serializable {
                 if (alias.getCveId() != null && !alias.getCveId().isBlank()) {
                     map.put("cveId", alias.getCveId());
                 }
+                if (alias.getEuvdId() != null && !alias.getEuvdId().isBlank()) {
+                    map.put("euvdId", alias.getEuvdId());
+                }
                 if (alias.getGhsaId() != null && !alias.getGhsaId().isBlank()) {
                     map.put("ghsaId", alias.getGhsaId());
                 }
